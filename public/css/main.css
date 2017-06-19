@@ -8938,7 +8938,7 @@ textarea {
 .fa {
   margin-right: 6px; }
 
-html, body, .container-fluid, .row, #map {
+html, body, .container-fluid, .row {
   height: 100%; }
 
 #chat {
@@ -8952,3 +8952,29 @@ html, body, .container-fluid, .row, #map {
   padding-bottom: 10px;
   padding-left: 15px;
   padding-right: 15px; }
+
+#map {
+  height: 100%;
+  postion: relative; }
+
+#free-auntie .btn-success {
+  position: absolute;
+  z-index: 1;
+  top: 85%;
+  left: 30%;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 15px;
+  display: none; }
+
+#add-auntie .btn-danger {
+  position: absolute;
+  z-index: 1;
+  top: 85%;
+  left: 30%;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 15px;
+  display: block; }

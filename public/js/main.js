@@ -1,4 +1,6 @@
 var map, markers
+var image = '.../images/DropPin.png';
+
 function locationSuccess(position) {
   console.log('Location success')
   var current = {lat: position.coords.latitude, lng: position.coords.longitude};
@@ -9,7 +11,8 @@ function locationSuccess(position) {
   markers = [];
   var marker = new google.maps.Marker({
     position: current,
-    map: map
+    map: map,
+    icon: image
   });
 
   socket.emit('newUser', current);
@@ -18,7 +21,8 @@ function locationSuccess(position) {
 
     var marker = new google.maps.Marker({
       position: data,
-      map: map
+      map: map,
+      icon: image
     });
     markers.push(marker);
   });
@@ -96,7 +100,8 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
     console.log('broadcast success')
     var marker = new google.maps.Marker({
       position: data,
-      map: map
+      map: map,
+      icon: image
     });
     markers.push(marker);
   });
@@ -111,6 +116,10 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
   $('#free-auntie').on('click', function(e){
     console.log('delete auntie')
     deleteMarkers();
+    var auntieFreeButton = document.getElementsByClassName('btn-success')[0];
+    auntieFreeButton.style.display = 'none';
+    var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
+    auntieReportButton.style.display ='block';
   })
 
   $('#add-auntie').on('click', function(e){
@@ -118,17 +127,25 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
     function placeMarker(location) {
         var marker = new google.maps.Marker({
             position: location,
-            map: map
+            map: map,
+            icon: image
         });
         markers.push(marker);
 
         return location;
+
     }
+
 
     google.maps.event.addListener(map, 'click', function(event) {
       console.log('add marker')
       socket.emit('newMarker', placeMarker(event.latLng))
     });
+
+    var auntieFreeButton = document.getElementsByClassName('btn-success')[0];
+    auntieFreeButton.style.display = 'block';
+    var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
+    auntieReportButton.style.display ='none';
 
   })
 

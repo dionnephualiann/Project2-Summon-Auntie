@@ -2,9 +2,9 @@ extends layout
 
 block content
   #free-auntie
-    input(type='button', value='Auntie-free?')
+    button.btn.btn-success(type='button', value='Auntie-free?') Auntie-free?
   #add-auntie
-    input(type='button', value='Add Auntie')
+    button.btn.btn-danger(type='button', value='Add Auntie') Report Auntie
   .row
     #map.col-sm-9
 
@@ -12,5 +12,5 @@ block content
       form.form-inline.chatInput
         .form-group
           .input-group
-            input.form-control(type='text', placeholder='Msg')
+            input.form-control(type='text', placeholder='Your Message')
         button.btn.btn-primary(type='submit') Send
