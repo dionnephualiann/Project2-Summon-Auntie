@@ -1,5 +1,5 @@
 var map, markers
-var image = '.../images/DropPin.png';
+var image = '/images/DropPin.png';
 
 function locationSuccess(position) {
   console.log('Location success')
