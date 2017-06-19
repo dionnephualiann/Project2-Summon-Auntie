@@ -11,8 +11,9 @@ function locationSuccess(position) {
   markers = [];
   var marker = new google.maps.Marker({
     position: current,
-    map: map,
-    icon: image
+    map: map
+    // ,
+    // icon: image
   });
 
   socket.emit('newUser', current);
@@ -21,8 +22,9 @@ function locationSuccess(position) {
 
     var marker = new google.maps.Marker({
       position: data,
-      map: map,
-      icon: image
+      map: map
+      // ,
+      // icon: image
     });
     markers.push(marker);
   });
