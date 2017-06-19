@@ -16,6 +16,11 @@ module.exports = (io) => {
       io.emit('broadcast location', data);
     });
 
+    socket.on('newMarker', (data) => {
+      console.log('New Marker',data);
+      io.emit('broadcast marker', data);
+    });
+
 
 
   });
