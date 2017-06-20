@@ -17,8 +17,8 @@ function locationSuccess(position) {
   });
 
   socket.emit('newUser', current);
-  socket.on('broadcast location', function (data) {
-    console.log('broadcast location',data);
+  socket.on('broadcastLocation', function (data) {
+    console.log('broadcast Location',data);
 
     var marker = new google.maps.Marker({
       position: data,
@@ -37,34 +37,6 @@ function locationError() {
 // Get user location
 function initMap() {
   navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
-//   infoWindow = new google.maps.InfoWindow;
-//
-//   if (navigator.geolocation) {
-//      navigator.geolocation.getCurrentPosition(function(position) {
-//        var pos = {
-//          lat: position.coords.latitude,
-//          lng: position.coords.longitude
-//        };
-//
-//        infoWindow.setPosition(pos);
-//        infoWindow.setContent('Location found.');
-//        infoWindow.open(map);
-//        map.setCenter(pos);
-//      }, function() {
-//        handleLocationError(true, infoWindow, map.getCenter());
-//      });
-//    } else {
-//      // Browser doesn't support Geolocation
-//      handleLocationError(false, infoWindow, map.getCenter());
-//    }
-//
-//    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-//   infoWindow.setPosition(pos);
-//   infoWindow.setContent(browserHasGeolocation ?
-//                         'Error: The Geolocation service failed.' :
-//                         'Error: Your browser doesn\'t support geolocation.');
-//   infoWindow.open(map);
-// }
 }
 
 
@@ -90,14 +62,14 @@ function deleteMarkers() {
 
 socket = io.connect(window.location.href, {secure: true, transports: ['websocket']});
 
-  socket.on('broadcast message', function (data) {
+  socket.on('broadcastMessage', function (data) {
     console.log(data);
 
     var msg = $('<div>').text(data);
     $('#chat').append(msg);
   });
 
-  socket.on('broadcast marker', function (data) {
+  socket.on('broadcastMarker', function (data) {
     console.log(data);
     console.log('broadcast success')
     var marker = new google.maps.Marker({
@@ -122,6 +94,8 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
     auntieFreeButton.style.display = 'none';
     var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
     auntieReportButton.style.display ='block';
+
+    // socket.emit('deleteMarkers', function (data) )
   })
 
   $('#add-auntie').on('click', function(e){
