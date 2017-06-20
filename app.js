@@ -40,6 +40,8 @@ const contactController = require('./controllers/contact');
  * API keys and Passport configuration.
  */
 const passportConfig = require('./config/passport');
+const cookieParser = require('cookie-parser');
+const passportSocketIo = require("passport.socketio");
 
 /**
  * Create Express server.
@@ -85,18 +87,36 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
-app.use(session({
+
+const sessionStore = new MongoStore({                           //store all session info (eg: session id) in MongoDB or MongoLAB
+  url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
+  autoReconnect: true,
+  clear_interval: 3600
+});
+
+const Session = session({
   resave: true,
   saveUninitialized: true,
-  secret: process.env.SESSION_SECRET,
-  store: new MongoStore({
-    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
-    autoReconnect: true,
-    clear_interval: 3600
-  })
-}));
+  secret: "WDI-Singapore",    //secret was changed. secret is the encryption key of cookies, it is user-defined and can be any STRING
+  store: sessionStore,
+  cookieParser: cookieParser    //cookieParser was added. cookieParser decrypts cookie into a form that is usable to pass to passportSocketIo later
+});
+
+app.use(Session);
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+
+io.use(passportSocketIo.authorize({
+  cookieParser: cookieParser,       // the same middleware you registrer in express
+  key:          'connect.sid',       // the name of the cookie where express/connect stores its session_id, check this by going to developer-tools->application->cookies (double-click)->click on current website (your local host)
+  secret:       "WDI-Singapore",    // the session_secret to parse the cookie
+  store:        sessionStore,       // the session store you used
+}));
+
+
 app.use(flash());
 app.use((req, res, next) => {
   if (req.path === '/api/upload') {

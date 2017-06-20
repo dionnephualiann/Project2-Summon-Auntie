@@ -50,6 +50,12 @@ $(document).ready(function() {
     }
   }
 
+function deleteOne(uuid) {
+  console.log(uuid)
+  console.log(markers.indexOf(uuid))
+}
+
+
   // Removes the markers from the map, but keeps them in the array.
   function clearMarkers() {
     setMapOnAll(null);
@@ -90,12 +96,25 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
   $('#free-auntie').on('click', function(e){
     console.log('delete auntie')
     deleteMarkers();
+    //console.log($(e.target))
+    //deleteOne($(e.target).);
     var auntieFreeButton = document.getElementsByClassName('btn-success')[0];
     auntieFreeButton.style.display = 'none';
     var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
     auntieReportButton.style.display ='block';
 
-    // socket.emit('deleteMarkers', function (data) )
+
+    // marker.addListener('click', function() {
+    //     //  infowindow.open(map, marker);
+    //      deleteOne();
+    //
+    //    });
+    // socket.on('deleteMarkers', function (data) {
+    //   clearMarkers(userId);
+    //   markers = [];
+
+
+    })
   })
 
   $('#add-auntie').on('click', function(e){
@@ -104,8 +123,10 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
         var marker = new google.maps.Marker({
             position: location,
             map: map,
-            icon: image
+            icon: image,
+            uuid: uuidv4()
         });
+        //marker.uuid = uuidv4();
         markers.push(marker);
 
         return location;
@@ -113,16 +134,21 @@ socket = io.connect(window.location.href, {secure: true, transports: ['websocket
     }
 
 
-    google.maps.event.addListener(map, 'click', function(event) {
+if ($('free-auntie') !== 0) {
+      google.maps.event.addListener(map, 'click', function(event) {
       console.log('add marker')
+      console.log(event)
       socket.emit('newMarker', placeMarker(event.latLng))
     });
+    google.maps.event.addListener(markers, 'click', function(event){
+      console.log('marker')
+    })
+}
 
     var auntieFreeButton = document.getElementsByClassName('btn-success')[0];
     auntieFreeButton.style.display = 'block';
     var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
     auntieReportButton.style.display ='none';
 
-  })
 
 });

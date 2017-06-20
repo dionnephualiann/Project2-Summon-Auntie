@@ -1,9 +1,12 @@
 
 module.exports = (io) => {
 
+  let connectedUser =[];
+
   io.on('connection', (socket) => {
 
     console.log('New user connected');
+    //connectedUser[socket.request.user._id]= socket.request.user;
 
     socket.on('newMessage', (data) => {
       console.log('New message',data);
