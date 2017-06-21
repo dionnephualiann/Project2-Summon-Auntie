@@ -23,6 +23,7 @@ const multer = require('multer');
 const morgan = require('morgan');
 const Server = require('http').Server;
 
+
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -36,7 +37,7 @@ dotenv.load({ path: '.env.example' });
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
-
+const markerController = require('./controllers/Marker');
 /**
  * API keys and Passport configuration.
  */
@@ -53,6 +54,11 @@ const option = {
 };
 
 const app = express();
+
+// //Socket IO (to be deleted)
+// const server = require('https').Server(option, app);
+// const io = require('socket.io')(server);
+//
 
 /**
  * Connect to MongoDB.
@@ -153,6 +159,7 @@ app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthor
 app.get('/api/upload', apiController.getFileUpload);
 app.post('/api/upload', upload.single('myFile'), apiController.postFileUpload);
 app.get('/api/google-maps', apiController.getGoogleMaps);
+app.post('/api/markers',passport.authenticate('local'), markerController.placeMarker);
 
 /**
  * OAuth authentication routes. (Sign in)
@@ -168,6 +175,12 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Error Handler.
  */
 app.use(errorHandler());
+
+//
+// /**
+//  *  Socket.io (To be deleted)
+//  */
+// const socketIO = require('./routes/websockets')(io);
 
 
 /**
