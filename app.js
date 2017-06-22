@@ -64,7 +64,7 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_OLIVE_URI || process.env.MONGOLAB_URI);
 mongoose.connection.on('error', (err) => {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
@@ -89,7 +89,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 const sessionStore = new MongoStore({                           //store all session info (eg: session id) in MongoDB or MongoLAB
-  url: process.env.MONGOLAB_URI,
+  url: process.env.MONGOLAB_OLIVE_URI || process.env.MONGODB_URI,
   autoReconnect: true,
   clear_interval: 3600
 });
