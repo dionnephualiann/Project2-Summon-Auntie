@@ -6,7 +6,7 @@ const express = require('express');
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
+//const logger = require('morgan');
 const chalk = require('chalk');
 const errorHandler = require('errorhandler');
 const lusca = require('lusca');
@@ -20,7 +20,7 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
-const morgan = require('morgan');
+//const morgan = require('morgan');
 const Server = require('https').Server;
 
 
@@ -103,7 +103,7 @@ const Session = session({
 });
 
 app.use(Session);
-app.use(morgan('tiny'));
+//app.use(morgan('tiny'));
 
 app.use(passport.initialize());
 app.use(passport.session());
