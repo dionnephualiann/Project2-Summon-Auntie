@@ -6,7 +6,6 @@ const express = require('express');
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-//const logger = require('morgan');
 const chalk = require('chalk');
 const errorHandler = require('errorhandler');
 const lusca = require('lusca');
@@ -20,8 +19,6 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
-//const morgan = require('morgan');
-const Server = require('https').Server;
 
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
@@ -195,9 +192,10 @@ app.use(errorHandler());
 /**
  * Start Express server.
  */
-(new Server(app)).listen(app.get('port'), () => {
+app.listen(app.get('port'), () => {
   console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
   console.log('  Press CTRL-C to stop\n');
 });
+
 
 module.exports = app;
