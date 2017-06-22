@@ -21,7 +21,7 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 const morgan = require('morgan');
-const Server = require('http').Server;
+const Server = require('https').Server;
 
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
