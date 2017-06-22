@@ -8,10 +8,10 @@ function setMapOnAll(map) {
   }
 }
 
-function deleteOne(uuid) {
-  console.log(uuid)
-  console.log(markers.indexOf(uuid))
-}
+// function deleteOne(uuid) {
+//   console.log(uuid)
+//   console.log(markers.indexOf(uuid))
+// }
 
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
@@ -32,7 +32,6 @@ function placeMarker(location) {
     });
     markers.push(marker);
   }
-
 
 function locationSuccess(position) {
   console.log('Location success')
@@ -73,11 +72,7 @@ function initMap() {
 
 // browser on load, RUN all these :
 $(document).ready(function() {
-
-
-
 // socket = io.connect(window.location.href, {secure: true, transports: ['websocket']});
-
   // Listening to Broadcast Markers
   // socket.on('broadcastMessage', function (data) {
   //   console.log(data);
@@ -107,6 +102,7 @@ $(document).ready(function() {
   });
 
 
+
   // Clear Markers
   $('#free-auntie').on('click', function(e){
     console.log('delete auntie')
@@ -126,7 +122,7 @@ $(document).ready(function() {
     //  addMarkers(location);
         placeMarker();
 
-// creating marker to database
+// creating marker to Post to database
         $.ajax ({
           url: './api/markers',
           type: 'POST',
@@ -141,21 +137,31 @@ $(document).ready(function() {
         });
 
 
-if ($('#free-auntie') !== 0) {
-      google.maps.event.addListener(map, 'click', function(event) {
-      console.log('add marker')
-      console.log(event)
-    //   socket.emit('newMarker', placeMarker(event.latLng))
-    });
-    google.maps.event.addListener(markers, 'click', function(event){
-      console.log('marker')
-    })
-}
-    // Change of buttons
-    var auntieFreeButton = document.getElementsByClassName('btn-success')[0];
-    auntieFreeButton.style.display = 'block';
-    var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
-    auntieReportButton.style.display ='none';
+        if ($('#free-auntie') !== 0) {
+              google.maps.event.addListener(map, 'click', function(event) {
+              console.log('add marker')
+              console.log(event)
+            //   socket.emit('newMarker', placeMarker(event.latLng))
+            });
+            google.maps.event.addListener(markers, 'click', function(event){
+              console.log('marker')
+            })
+        }
+            // Change of buttons
+            var auntieFreeButton = document.getElementsByClassName('btn-success')[0];
+            auntieFreeButton.style.display = 'block';
+            var auntieReportButton = document.getElementsByClassName('btn-danger')[0];
+            auntieReportButton.style.display ='none';
 
-return location;
+        return location;
 });
+
+
+// ------------------- Real Time Chat ---------------------
+
+setInterval(function(){
+    $.ajax({ url: "server", success: function(data){
+        //Update your dashboard gauge
+        salesGauge.setValue(data.value);
+    }, dataType: "json"});
+}, 30000);
