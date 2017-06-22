@@ -44,14 +44,14 @@ const markerController = require('./controllers/Marker');
 const passportConfig = require('./config/passport');
 const cookieParser = require('cookie-parser');
 
-// Keys
-const key = fs.readFileSync('./keys/realtimeweb-key.pem');
-const cert = fs.readFileSync('./keys/realtimeweb-cert.pem');
-
-const option = {
-  key: key,
-  cert: cert
-};
+// // Keys
+// const key = fs.readFileSync('./keys/realtimeweb-key.pem');
+// const cert = fs.readFileSync('./keys/realtimeweb-cert.pem');
+//
+// const option = {
+//   key: key,
+//   cert: cert
+// };
 
 const app = express();
 
