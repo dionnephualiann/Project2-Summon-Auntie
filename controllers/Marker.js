@@ -9,7 +9,7 @@ exports.placeMarker = (req, res) => {
  // server creates marker and pushes it into database
  // if u click place marker, the function should call the route to
  // to place marker
-  // Create Marker
+  // Create Marker with an empty object
     let marker = new Marker({});
 
     // Add the marker to the markersArray
@@ -36,7 +36,7 @@ exports.removeMarkers = (req, res) => {
   // delete is set to false until the user clicks
   // remove to remove all marked markers
   let deleted = false;
-
+  // calling the model and deleting the elements from Mongoose DB.
       Marker.remove({ user: req.user.id }, function (err) {
         if (err) {
           res.sendStatus(500);
