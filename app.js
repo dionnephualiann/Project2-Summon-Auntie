@@ -89,7 +89,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 const sessionStore = new MongoStore({                           //store all session info (eg: session id) in MongoDB or MongoLAB
-  url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
+  url: process.env.MONGOLAB_URI,
   autoReconnect: true,
   clear_interval: 3600
 });
