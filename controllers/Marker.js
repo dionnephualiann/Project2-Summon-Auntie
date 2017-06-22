@@ -37,23 +37,15 @@ exports.removeMarkers = (req, res) => {
   // remove to remove all marked markers
   let deleted = false;
 
-    marker.user = req.user.id;
-
-    if(marker.user == id ){
-     // remove all markers associated with the User Id.
-     marker.remove((err, value) => {
-     // If there was an error return a 500 status which indicates a server error
-     if (err) {
-       res.sendStatus(500);
-     }
-
-     // Otherwise return the object as JSON
-     res.json(value.toObject());
-   });
-     deleted = true;
+      Marker.remove({ user: req.user.id }, function (err) {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      })
 
   return deleted;
-}
 };
 
 // Get a list of all the markers
