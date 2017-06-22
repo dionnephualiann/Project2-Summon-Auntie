@@ -158,7 +158,8 @@ app.post('/api/upload', upload.single('myFile'), apiController.postFileUpload);
 app.get('/api/google-maps', apiController.getGoogleMaps);
 
 // Marker routes
-// List is unprotected because anybody can view the markers
+// List is unprotected because anybody can view the markers. Broadcast across all users.
+// Needs to refresh page to see new markers.
 app.get('/api/markers', markerController.listMarkers);
 
 // Adding a marker requires the user to be logged in
