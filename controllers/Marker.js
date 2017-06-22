@@ -1,4 +1,5 @@
 // Marker controller
+const uuidV4 = require('uuid/v4');
 
 //Create marker
 const Marker = require('../models/marker');

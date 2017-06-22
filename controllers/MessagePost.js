@@ -1,38 +1,33 @@
-// Message controller
-
-
-/*
- *  Return all the candy
- */
-exports.list = () => {
-    return store;
-
-
-
-/*
- *  Create Message ( Crud )
- */
-exports.create = (candy) => {
-    candy.id = uuidV4();
-    candy.price = parseFloat(candy.price);
-    store.push(candy);
-
-    return candy;
-}
-
-
-
-/*
- *  Update candy ( crUd )
- */
-exports.update = ( newCandy ) => {
-
-  store.forEach((candy, index)=>{
-    if(candy.id == newCandy.id ){
-      store[index] = newCandy;
-      store[index].price = parseFloat(newCandy.price);
-    }
-  });
-
-  return newCandy;
-}
+// // Message controller
+// const uuidV4 = require('uuid/v4');
+//
+// let messageList = [];
+//
+// /*
+//  *  Return all the Messages
+//  */
+// exports.list = () => {
+//     return messageList;
+// }
+// /*
+//  *  Create Message
+//  */
+// exports.create = (message) => {
+//     message.id = uuidV4();
+//     messageList.push(messgae);
+//
+//     return message;
+// }
+//
+// /*
+//  *  Update Message
+//  */
+// exports.update = ( newMessage ) => {
+//
+//   messageList.forEach((message, index)=>{
+//     if(message.id == newMessage.id ){
+//       messageList[index] = newMessage;
+//     }
+//   });
+//   return newMessage;
+// }

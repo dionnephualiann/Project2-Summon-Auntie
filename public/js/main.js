@@ -93,13 +93,7 @@ $(document).ready(function() {
   // });
 
 
-  // Broadcast Message/ Append Message
-  $('#chat button').on('click', function(e){
-      e.preventDefault();
-      var message = $('#chat input').val();
-      // socket.emit('newMessage', message);
-      $('#chat input').val('');
-  });
+
 
 
 
@@ -154,14 +148,26 @@ $(document).ready(function() {
             auntieReportButton.style.display ='none';
 
         return location;
-});
-
 
 // ------------------- Real Time Chat ---------------------
 
-setInterval(function(){
-    $.ajax({ url: "server", success: function(data){
-        //Update your dashboard gauge
-        salesGauge.setValue(data.value);
-    }, dataType: "json"});
-}, 30000);
+  // (function poll(){
+  // setTimeout(function(){
+  //   $.ajax({ url: "server", success: function(data){
+  //     //Update your dashboard gauge
+  //     salesGauge.setValue(data.value);
+  //
+  //     //Setup the next poll recursively
+  //     poll();
+  //   }, dataType: "json"});
+  // }, 30000);
+  // })();
+
+        // // Broadcast Message/ Append Message
+        // $('#chat button').on('click', function(e){
+        //     e.preventDefault();
+        //     var message = $('#chat input').val();
+        //     // socket.emit('newMessage', message);
+        //     $('#chat input').val('');
+        // });
+});

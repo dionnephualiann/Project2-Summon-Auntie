@@ -136,6 +136,10 @@ app.use((req, res, next) => {
   }
   next();
 });
+// import messageRoutes from '../routes/messageRoutes'
+// app.use('/api', passport.authenticate('local'), messageRoutes)
+
+
 
 /**
  * Primary app routes.
@@ -160,6 +164,7 @@ app.get('/api/upload', apiController.getFileUpload);
 app.post('/api/upload', upload.single('myFile'), apiController.postFileUpload);
 app.get('/api/google-maps', apiController.getGoogleMaps);
 app.post('/api/markers',passport.authenticate('local'), markerController.placeMarker);
+// app.post('/api/message',passport.authenticate('local'), MessagePostController);
 
 /**
  * OAuth authentication routes. (Sign in)
