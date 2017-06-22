@@ -64,7 +64,7 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGOLAB_OLIVE_URI || process.env.MONGOLAB_URI);
+mongoose.connect( process.env.MONGOLAB_OLIVE_URI  || 'mongodb://localhost:27017/Project2-Summon-Auntie');
 mongoose.connection.on('error', (err) => {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
@@ -83,13 +83,13 @@ app.use(sass({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public')
 }));
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 const sessionStore = new MongoStore({                           //store all session info (eg: session id) in MongoDB or MongoLAB
-  url: process.env.MONGOLAB_OLIVE_URI || process.env.MONGODB_URI,
+  url: process.env.MONGOLAB_OLIVE_URI  || 'mongodb://localhost:27017/Project2-Summon-Auntie',
   autoReconnect: true,
   clear_interval: 3600
 });
