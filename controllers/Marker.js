@@ -30,8 +30,30 @@ exports.placeMarker = (req, res) => {
     });
 };
 
+// Delete markers
 exports.removeMarkers = (req, res) => {
   // TODO Add the remove logic here
+  // delete is set to false until the user clicks
+  // remove to remove all marked markers
+  let deleted = false;
+
+    marker.user = req.user.id;
+
+    if(marker.user == id ){
+     // remove all markers associated with the User Id.
+     marker.remove((err, value) => {
+     // If there was an error return a 500 status which indicates a server error
+     if (err) {
+       res.sendStatus(500);
+     }
+
+     // Otherwise return the object as JSON
+     res.json(value.toObject());
+   });
+     deleted = true;
+
+  return deleted;
+}
 };
 
 // Get a list of all the markers
