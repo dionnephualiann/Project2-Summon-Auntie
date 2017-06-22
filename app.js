@@ -136,10 +136,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-// import messageRoutes from '../routes/messageRoutes'
-// app.use('/api', passport.authenticate('local'), messageRoutes)
-
-
 
 /**
  * Primary app routes.
@@ -163,8 +159,16 @@ app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthor
 app.get('/api/upload', apiController.getFileUpload);
 app.post('/api/upload', upload.single('myFile'), apiController.postFileUpload);
 app.get('/api/google-maps', apiController.getGoogleMaps);
-app.post('/api/markers',passport.authenticate('local'), markerController.placeMarker);
-// app.post('/api/message',passport.authenticate('local'), MessagePostController);
+
+// Marker routes
+// List is unprotected because anybody can view the markers
+app.get('/api/markers', markerController.listMarkers);
+
+// Adding a marker requires the user to be logged in
+app.post('/api/markers', passportConfig.isAuthenticated, markerController.placeMarker);
+
+// Deleting markers also requires the user to be logged in
+app.delete('/api/markers', passportConfig.isAuthenticated, markerController.removeMarkers);
 
 /**
  * OAuth authentication routes. (Sign in)

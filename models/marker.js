@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const markerSchema = new mongoose.Schema({
   markersArray: [{
-    longitude: String,
-    latitude: String
+    lng: Number,
+    lat: Number
   }],
-  reference: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user: String,
 }, { timestamps: true
-})
+});
 
 module.exports = markerSchema;
