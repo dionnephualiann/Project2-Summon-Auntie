@@ -22,7 +22,7 @@ exports.placeMarker = (req, res) => {
     marker.save((err, value) => {
       // If there was an error return a 500 status which indicates a server error
       if (err) {
-        res.sendStatus(500);
+        return res.sendStatus(500);
       }
 
       // Otherwise return the object as JSON
@@ -50,6 +50,15 @@ exports.removeMarkers = (req, res) => {
 
 // Get a list of all the markers
 exports.listMarkers = (req, res) => {
+
+  // Marker.forEach((marker, index)=>{
+  //   if(marker.isUser == true ){
+  //
+  //   }
+  // });
+
+//   return newCandy;
+// }
   // Find all the markers
   Marker.find().exec((err, docs) => {
     if (err) {

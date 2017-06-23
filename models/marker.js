@@ -6,7 +6,9 @@ const markerSchema = new mongoose.Schema({
     lat: Number
   }],
   user: String,
-}, { timestamps: true
+  isUser: Boolean
+},
+{ timestamps: true
 });
 
 module.exports = markerSchema;
