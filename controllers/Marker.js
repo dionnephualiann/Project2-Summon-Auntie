@@ -37,28 +37,21 @@ exports.removeMarkers = (req, res) => {
   // remove to remove all marked markers
   let deleted = false;
   // calling the model and deleting the elements from Mongoose DB.
-      Marker.remove({ user: req.user.id }, function (err) {
+  // Mongo Query: isUser not equal to true - delete all markers
+      Marker.remove({ user: req.user.id, isUser: { $ne: true } }
+        , function (err) {
         if (err) {
-          res.sendStatus(500);
+          return res.sendStatus(500);
         } else {
-          res.sendStatus(200);
+          return res.sendStatus(200);
         }
       })
-
   return deleted;
 };
 
 // Get a list of all the markers
 exports.listMarkers = (req, res) => {
 
-  // Marker.forEach((marker, index)=>{
-  //   if(marker.isUser == true ){
-  //
-  //   }
-  // });
-
-//   return newCandy;
-// }
   // Find all the markers
   Marker.find().exec((err, docs) => {
     if (err) {
