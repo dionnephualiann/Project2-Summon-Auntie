@@ -2,6 +2,12 @@ let map, reportAunties = false;
 let markers = [];
 const image = '/images/DropPin.png';
 
+
+if (window.location.hash && window.location.hash == '#_=_') {
+        window.location.hash = '';
+}
+
+
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
   for (let i = 0; i < markers.length; i++) {
