@@ -172,7 +172,7 @@ app.delete('/api/markers', passportConfig.isAuthenticated, markerController.remo
  */
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('/');
+  res.redirect('/account');
 });
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
