@@ -20,7 +20,6 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
-
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -173,7 +172,7 @@ app.delete('/api/markers', passportConfig.isAuthenticated, markerController.remo
  */
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+  res.redirect('/');
 });
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));

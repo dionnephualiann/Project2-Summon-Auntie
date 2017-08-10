@@ -26,20 +26,20 @@ function deleteMarkers() {
   });
 }
 
-function placeMarker(location) {
+function placeMarker(location, isUser) {
   // creating marker to Post to database
   $.ajax({
     url: '/api/markers',
-    data: JSON.stringify({ marker: location }),
+    data: JSON.stringify({ marker: location, isUser}),  //had issues with Ajax jQuery by issuing as form-data.
     type: 'POST',
-    contentType: 'application/json'
+    contentType: 'application/json' // force to prcess as jSon.
   }).done((response) => {
     console.log('Successfully created marker');
     console.log(response);
     const marker = new google.maps.Marker({
       position: location,
       map: map,
-      icon: image
+      icon: image,
     });
     markers.push(marker);
   });
@@ -54,13 +54,7 @@ function locationSuccess(position) {
     center: current
   });
 
-  // Add a marker for the user's current location
-  const marker = new google.maps.Marker({
-    position: current,
-    map: map
-  });
-
-  markers.push(marker);
+  placeMarker(current, true);
 
   // Retrieve the list of all markers that the user can see
   $.get('/api/markers')
@@ -82,10 +76,11 @@ function locationSuccess(position) {
   map.addListener('click', function (event) {
     // Only place markers if we are in reporting mode
     if (reportAunties) {
-      placeMarker(event.latLng);
+      placeMarker(event.latLng, false);
     }
   });
 }
+
 
 function locationError() {
   console.log('Cound not get location');
