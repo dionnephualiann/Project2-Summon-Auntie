@@ -122,7 +122,8 @@ exports.isAuthenticated = (req, res, next) => {
  * Authorization Required middleware.
  */
 exports.isAuthorized = (req, res, next) => {
-  const provider = req.path.split('/').slice(-1)[0];
+  // const provider = req.path.split('/').slice(-1)[0];
+  const provider = req.path.split('/');
   const token = req.user.tokens.find(token => token.kind === provider);
   if (token) {
     next();
